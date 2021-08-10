@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/estilo.css">
 
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <form action="api-cadastro.jsp">
+    <form action="cadastroServlet">
         <fieldset>
             <legend>CADASTRO</legend>
             <img id="img-java" src="img/java.png" alt="imagem java">
@@ -25,11 +25,11 @@
             <input class="larguraTexto" type="text" id="nome" name="nome-completo"
                 placeholder="Digite seu nome completo">
             <label for="telefone">Telefone:</label>
-            <input class="larguraTexto" type="text" placeholder="(61)9.9999-9999">
+            <input class="larguraTexto" type="text" placeholder="(61)9.9999-9999" name="telefone">
             <label for="dtNascimento">Data de Nascimento:</label>
             <input class="larguraTexto" type="date" id="dtNascimento" name="dt-nascimento">
             <label for="email">E-mail:</label>
-            <input class="larguraTexto" type="email" id="email">
+            <input class="larguraTexto" type="email" id="email" name="email">
             <label for="sexo">Sexo:</label>
             <div class="bloco-inline">
                 <input type="radio" id="masc" name="sexo" value="m"> <label for="masc"> Masculino</label>
@@ -46,7 +46,7 @@
             <select name="escolaridade" id="escolaridade">
                 <option value="">Selecione</option>
                 <option value="Fundamental">Fundamental</option>
-                <option value="Ensino Médio">Ensino Médio</option>
+                <option value="Ensino MÃ©dio">Ensino MÃ©dio</option>
                 <option value="Superio">Superio</option>
             </select>
             <input type="submit" class="bt" value="Enviar">
