@@ -1,3 +1,4 @@
+package org.senai.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -9,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.senai.db.Conexao;
 
 @WebServlet("/cadastroServlet")
 public class CadastroServlet extends HttpServlet {
@@ -32,32 +35,31 @@ public class CadastroServlet extends HttpServlet {
 		saida.println(sexo);
 		String lsTecnologia = "";
 		for (String t : tecnologia) {
-			saida.println(t);	
-			lsTecnologia += t+",";
+			saida.println(t);
+			lsTecnologia += t + ",";
 		}
-		
+
 		saida.println(escolaridade);
-		
+
 		try {
-			Class.forName("org.postgresql.Driver");
-			String url = "jdbc:postgresql://chunee.db.elephantsql.com:5432/zvrnaorq";
-			String usuarioDb = "zvrnaorq";
-			String senhaDb = "jLYIKYCxll8vriKyyaFT5D8VtOJG0XDo";
-			Connection cont = DriverManager.getConnection(url, usuarioDb, senhaDb);
-			saida.println("Ok para conexão");
-			
-			String sql = "insert into pessoas (nome_completo , telefone , dt_nascimento , email , sexo , tecnologia , escolaridade ) "
-					+ "values('"+nomeCompleto+"', '"+telefone+"', '"+dtNascimento+"', '"+email+"', '"+sexo+"', '"+lsTecnologia+"', '"+escolaridade+"') ";
-			PreparedStatement pst = cont.prepareStatement(sql);
-			pst.execute();
-			pst.close();
-			cont.close();
-			
-			saida.println("Registro Gravado");
+//			Conexao c = new Conexao();
+			Connection cont = Conexao.conectar();
+			if (cont != null) {
+				saida.println("Ok para conexão");
+				String sql = "insert into pessoas (nome_completo , telefone , dt_nascimento , email , sexo , tecnologia , escolaridade ) "
+						+ "values('" + nomeCompleto + "', '" + telefone + "', '" + dtNascimento + "', '" + email
+						+ "', '" + sexo + "', '" + lsTecnologia + "', '" + escolaridade + "') ";
+				PreparedStatement pst = cont.prepareStatement(sql);
+				pst.execute();
+				pst.close();
+				cont.close();
+				saida.println("Registro Gravado");
+			} else {
+				saida.println("Erro de conexão");
+			}
 		} catch (Exception e) {
-			saida.println("Erro de conexão");
+			e.printStackTrace();
 		}
-		
 		saida.println("</html>");
 	}
 

@@ -1,0 +1,10 @@
+﻿SQL - Structured Query Language linguagem de consulta estruturada
+DDL - Linguagem de Definição de Dados
+CREATE - ALTER - DROP
+
+DML - Linguagem de Manipulação de Dados
+C - INSERT
+R - SELECT
+U - UPDATE
+D - DELETE
+
