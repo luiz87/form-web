@@ -1,3 +1,6 @@
+<%@page import="org.senai.model.Pessoa"%>
+<%@page import="java.util.List"%>
+<%@page import="org.senai.dao.PessoaDao"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@ page import="java.sql.Connection"%>
@@ -13,11 +16,9 @@
 <body>
 
 	<%
-	Connection cont = Conexao.conectar();
-
-	if (cont != null) {
-		PreparedStatement pst = cont.prepareStatement("select nome_completo, email from pessoas");
-		ResultSet rs = pst.executeQuery();
+	PessoaDao objDao = new PessoaDao();
+	List<Pessoa> ls = objDao.listaPessoa();
+	if (ls.size() > 0) {
 	%>
 	<table>
 		<tr>
@@ -26,15 +27,11 @@
 		</tr>
 
 		<%
-		while (rs.next()) {
+		for (Pessoa p : ls) {
 		%>
 		<tr>
-			<td>
-				<%
-				out.print(rs.getString("nome_completo"));
-				%>
-			</td>
-			<td><%=rs.getString("email")%></td>
+			<td><%=p.getNomeCompleto()%></td>
+			<td><%=p.getEmail()%></td>
 		</tr>
 		<%
 		}
@@ -42,7 +39,6 @@
 
 	</table>
 	<%
-	cont.close();
 	}
 	%>
 </body>

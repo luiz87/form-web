@@ -3,6 +3,9 @@ package org.senai.dao;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.senai.db.Conexao;
 import org.senai.model.Pessoa;
@@ -30,6 +33,26 @@ public class PessoaDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public List<Pessoa> listaPessoa(){
+		List<Pessoa> ls = new ArrayList<>();
+		try {
+			Connection cont = Conexao.conectar();
+			PreparedStatement pst = cont.prepareStatement("select nome_completo, email from pessoas");
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				Pessoa p = new Pessoa();
+				p.setNomeCompleto(rs.getString("nome_completo"));
+				p.setEmail(rs.getString("email"));	
+				ls.add(p);
+			}	
+			cont.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return ls;
 	}
 
 }
