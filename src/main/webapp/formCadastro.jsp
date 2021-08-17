@@ -88,6 +88,8 @@
 %>
 		
 	</script>
+	<br>
+	<a href="index.jsp" style="float: right;">Index</a>
 </body>
 
 </html>
