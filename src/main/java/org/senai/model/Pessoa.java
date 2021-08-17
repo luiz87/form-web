@@ -3,14 +3,14 @@ package org.senai.model;
 public class Pessoa {
 
 	private int id;
-	private String nomeCompleto;
-	private String telefone;
-	private String dtNascimento;
-	private String email;
-	private String sexo;
-	private String[] tecnologia;
-	private String escolaridade;
-
+	private String nomeCompleto = "";
+	private String telefone = "";
+	private String dtNascimento = "";
+	private String email = "";
+	private String sexo = "";
+	private String[] tecnologia = {""};
+	private String escolaridade = "";
+	
 	public int getId() {
 		return id;
 	}
