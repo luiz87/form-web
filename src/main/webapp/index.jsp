@@ -1,17 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Primeira Página JSP</title>
+<meta charset="UTF-8">
+<title>Primeira PÃ¡gina JSP</title>
 </head>
 <body>
+<%@ include file="menu.jsp"%>
 	<%
 	String app = request.getParameter("app");
 	if (app == null)
 		app = "JSP";
-	out.print("Aqui é um conteudo " + app);
+	out.print("Aqui Ã© um conteudo " + app);
 	%>
 	<br>
 	<a href="formCadastro.jsp">Novo Cadastro</a>

@@ -1,57 +1,96 @@
 fieldset {
-    width: 50%;
-    margin: auto;
-    border: 2px solid blueviolet;
+	width: 50%;
+	margin: auto;
+	border: 2px solid blueviolet;
+	margin-top: 6px;
 }
 
 body {
-    font-family: Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    color: blue;
-  }
-
-label,
-input,
-.classe,
-#identificacao {
-    display: block;
+	font-family: Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: blue;
 }
 
-input[type=text], input[type=email], input[type=password], select{
-    width: 300px;
+label, input, .classe, #identificacao {
+	display: block;
+}
+
+input[type=text], input[type=email], input[type=password], select {
+	width: 300px;
 }
 
 input, select {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    border: 2px solid blueviolet;
-    border-radius: 3px;
-   
+	margin-top: 4px;
+	margin-bottom: 4px;
+	border: 2px solid blueviolet;
+	border-radius: 3px;
 }
 
-.larguraTexto{
-    height: 20px;
+.larguraTexto {
+	height: 20px;
 }
 
 .bt {
-    border: 2px solid blueviolet;
-    background-color: white;
-    font-weight: bold;
-    color:blueviolet;
-    padding: 5px 10px;
-    border-radius: 5px;
-    float: right;
+	border: 2px solid blueviolet;
+	background-color: white;
+	font-weight: bold;
+	color: blueviolet;
+	padding: 5px 10px;
+	border-radius: 5px;
+	float: right;
+	margin-right: 4px;
 }
 
 .bt:hover {
-    cursor: pointer;
-    background-color: blueviolet;
-    color: white;
+	cursor: pointer;
+	background-color: blueviolet;
+	color: white;
 }
 
-#img-java{
-    float: right;
-    height: 75px;
-    width: 90px;
+#img-java {
+	float: right;
+	height: 75px;
+	width: 90px;
+}
+
+#tb {
+	width: 50%;
+	margin: auto;
+	margin-top: 6px;
+}
+
+#estilo-tb {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	color: black;
+	width: 100%;
+}
+
+#estilo-tb td, #estilo-tb th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#estilo-tb tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#estilo-tb tr:hover {
+	background-color: #ddd;
+	cursor: pointer;
+}
+
+#estilo-tb th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: blueviolet;
+	color: white;
+}
+
+a {
+	text-decoration: none;
+	margin-top: 4px;
+	
 }
