@@ -8,3 +8,6 @@ CREATE TABLE pessoas (
 	tecnologia varchar(255),
 	escolaridade varchar(255)
 );
+
+
+ALTER TABLE pessoas ADD senha varchar(100);

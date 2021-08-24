@@ -9,6 +9,8 @@ ul {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
+	width: 53%;
+	margin: auto;
 }
 
 li {

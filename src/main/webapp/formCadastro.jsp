@@ -17,8 +17,15 @@
 </head>
 
 <body>
-<%@ include file="menu.jsp"%>
+	<%@ include file="menu.jsp"%>
 	<%
+	Pessoa usuario = (Pessoa) request.getSession().getAttribute("usuario");
+	boolean verLista = false;
+	if(usuario != null){
+		out.print(usuario.getNomeCompleto());
+		verLista = true;
+	}
+	
 	Pessoa p = new Pessoa();
 	try {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -94,17 +101,24 @@
 			}
 		}
 
-		document.getElementById("escolaridade").value = '<%=p.getEscolaridade()%>';
+		document.getElementById("escolaridade").value = '<%=p.getEscolaridade()%>
+		';
 	<%for (String t : p.getTecnologia()) {
 	out.println("document.getElementById('" + t + "').setAttribute('checked', 'checked')");
 }%>
 		
 	</script>
-	
-	<div id="tb">
 
+	<%
+	if (verLista) {
+	%>
+	<div id="tb">
 		<%@ include file="listaPessoas.jsp"%>
 	</div>
+	<%
+	}
+	%>
+
 </body>
 
 </html>
