@@ -19,12 +19,7 @@
 <body>
 	<%@ include file="menu.jsp"%>
 	<%
-	Pessoa usuario = (Pessoa) request.getSession().getAttribute("usuario");
-	boolean verLista = false;
-	if(usuario != null){
-		out.print(usuario.getNomeCompleto());
-		verLista = true;
-	}
+	
 	
 	Pessoa p = new Pessoa();
 	try {

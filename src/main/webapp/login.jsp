@@ -20,6 +20,18 @@
 				placeholder="Digite sua senha"> <input type="submit"
 				class="bt" value="Acessar">
 		</form>
+
+		<%
+		String erro = request.getParameter("erro");
+		if (erro != null) {
+		%>
+
+		<script type="text/javascript">
+			alert("Login ou senha não encontrado");
+		</script>
+		<%
+		}
+		%>
 	</fieldset>
 </body>
 </html>

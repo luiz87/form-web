@@ -16,17 +16,24 @@ import org.senai.model.Pessoa;
 public class LoginServlet extends HttpServlet {
 
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String login = req.getParameter("login");
-		String senha = req.getParameter("senha");
+		String acao = req.getParameter("acao");
 
-		PessoaDao dao = new PessoaDao();
-		Pessoa p = dao.validarLogin(login, senha);
-
-		if (p.getId() > 0) {
-			res.sendRedirect("formCadastro.jsp");
-			req.getSession().setAttribute("usuario", p);
-		} else {
+		if (acao != null && acao.equals("sair")) {
+			req.getSession().removeAttribute("usuario");
 			res.sendRedirect("login.jsp");
+		} else {
+			String login = req.getParameter("login");
+			String senha = req.getParameter("senha");
+
+			PessoaDao dao = new PessoaDao();
+			Pessoa p = dao.validarLogin(login, senha);
+
+			if (p.getId() > 0) {
+				res.sendRedirect("formCadastro.jsp");
+				req.getSession().setAttribute("usuario", p);
+			} else {
+				res.sendRedirect("login.jsp?erro");
+			}
 		}
 
 	}
