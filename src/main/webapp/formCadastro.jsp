@@ -106,11 +106,15 @@
 }%>
 		function acessarApi() {
 			const api = new XMLHttpRequest();
+			// ?orderBy=nome
 			api.open("GET","https://servicodados.ibge.gov.br/api/v1/localidades/estados");
 			api.send();
 			api.onload = function() {
 				var dados = this.responseText;
 				dados = JSON.parse(dados);
+				dados.sort(function(a,b){
+					return a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0;
+				});
 				var lsEstados = "<option value=''>Selecione</option>";
 				for(i in dados){
 					var uf = dados[i].sigla;
@@ -119,14 +123,12 @@
 				}
 				var estado = document.getElementById("uf");
 				estado.innerHTML = lsEstados;
+				if('<%=p.getUf()%>' != 'null')
 				document.getElementById("uf").value = '<%=p.getUf()%>';
 			}
 		}
 
 		acessarApi();
-		
-		
-		
 	</script>
 
 	<%
