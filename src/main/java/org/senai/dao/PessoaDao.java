@@ -21,11 +21,20 @@ public class PessoaDao {
 		try {
 			Connection cont = Conexao.conectar();
 
-			String sql = "insert into pessoas (nome_completo , telefone , dt_nascimento , email , sexo , tecnologia , escolaridade ) "
-					+ "values('" + objP.getNomeCompleto() + "', '" + objP.getTelefone() + "', '"
-					+ objP.getDtNascimento() + "', '" + objP.getEmail() + "', '" + objP.getSexo() + "', '"
-					+ lsTecnologia + "', '" + objP.getEscolaridade() + "') ";
+			String sql = "insert into pessoas (nome_completo , telefone , dt_nascimento , email , sexo , tecnologia , escolaridade , uf , senha) "
+					+ "values(?,?,?,?,?,?,?,?,'123') ";
 			PreparedStatement pst = cont.prepareStatement(sql);
+
+			pst.setString(1, sql);
+			pst.setString(1, objP.getNomeCompleto());
+			pst.setString(2, objP.getTelefone());
+			pst.setString(3, objP.getDtNascimento());
+			pst.setString(4, objP.getEmail());
+			pst.setString(5, objP.getSexo());
+			pst.setString(6, lsTecnologia);
+			pst.setString(7, objP.getEscolaridade());
+			pst.setString(8, objP.getUf());
+
 			pst.execute();
 			pst.close();
 			cont.close();
@@ -71,6 +80,7 @@ public class PessoaDao {
 				p.setSexo(rs.getString("sexo"));
 				p.setTecnologia(rs.getString("tecnologia").split(","));
 				p.setEscolaridade(rs.getString("escolaridade"));
+				p.setUf(rs.getString("uf"));
 				p.setId(rs.getInt("id"));
 			}
 			cont.close();
@@ -92,9 +102,8 @@ public class PessoaDao {
 		try {
 			Connection cont = Conexao.conectar();
 
-			String sql = " update pessoas set " + "nome_completo   = ?," + "telefone        = ?,"
-					+ "dt_nascimento   = ?," + "email           = ?," + "sexo            = ?," + "tecnologia      = ?,"
-					+ "escolaridade    = ?" + "where " + "id				= ?";
+			String sql = " update pessoas  set nome_completo = ?, telefone = ?, dt_nascimento = ?, email = ?,"
+					+ "sexo = ?, tecnologia = ?, escolaridade = ?, uf = ? where id = ?";
 
 			PreparedStatement pst = cont.prepareStatement(sql);
 			pst.setString(1, objP.getNomeCompleto());
@@ -104,7 +113,8 @@ public class PessoaDao {
 			pst.setString(5, objP.getSexo());
 			pst.setString(6, lsTecnologia);
 			pst.setString(7, objP.getEscolaridade());
-			pst.setInt(8, objP.getId());
+			pst.setString(8, objP.getUf());
+			pst.setInt(9, objP.getId());
 
 			pst.execute();
 			pst.close();
@@ -139,24 +149,18 @@ public class PessoaDao {
 		Pessoa p = new Pessoa();
 		try {
 			Connection cont = Conexao.conectar();
-			PreparedStatement pst = cont.prepareStatement("select * from pessoas WHERE email = '"+login+"' AND senha = '"+senha+"'");
-//			pst.setInt(1, id);
+			PreparedStatement pst = cont.prepareStatement(
+					"select * from pessoas WHERE email = '" + login + "' AND senha = '" + senha + "'");
 			ResultSet rs = pst.executeQuery();
-			while (rs.next()) {
-				p.setNomeCompleto(rs.getString("nome_completo"));
-				p.setEmail(rs.getString("email"));
-				p.setTelefone(rs.getString("telefone"));
-				p.setDtNascimento(rs.getString("dt_nascimento"));
-				p.setSexo(rs.getString("sexo"));
-				p.setTecnologia(rs.getString("tecnologia").split(","));
-				p.setEscolaridade(rs.getString("escolaridade"));
-				p.setId(rs.getInt("id"));
-			}
+			rs.next();
+			p.setId(rs.getInt("id"));
 			cont.close();
+			p = getPessoa(p.getId());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return p;
-		
+
 	}
 }

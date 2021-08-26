@@ -31,6 +31,7 @@ public class CadastroServlet extends HttpServlet {
 			objP.setSexo(req.getParameter("sexo"));
 			objP.setTecnologia(req.getParameterValues("tecnologia"));
 			objP.setEscolaridade(req.getParameter("escolaridade"));
+			objP.setUf(req.getParameter("uf"));
 			objP.setId(Integer.parseInt(req.getParameter("id")));
 		}
 

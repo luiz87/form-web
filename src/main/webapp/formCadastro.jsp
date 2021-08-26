@@ -48,7 +48,7 @@
 				name="dt-nascimento" value="<%=p.getDtNascimento()%>"> <label
 				for="email">E-mail:</label> <input class="larguraTexto" type="email"
 				id="email" name="email" value="<%=p.getEmail()%>"> <label>Estado</label>
-			<select id="estado" name="estado">
+			<select id="uf" name="uf">
 				<option>Selecione</option>
 			</select> <label for="sexo">Sexo:</label>
 			<div class="bloco-inline">
@@ -104,7 +104,6 @@
 }%>
 		function acessarApi() {
 			const api = new XMLHttpRequest();
-			
 			api.open("GET","https://servicodados.ibge.gov.br/api/v1/localidades/estados");
 			api.send();
 			api.onload = function() {
@@ -112,15 +111,13 @@
 				dados = JSON.parse(dados);
 				var lsEstados = "<option value=''>Selecione</option>";
 				for(i in dados){
-					//document.write(dados[i].sigla)
 					var uf = dados[i].sigla;
 					var nome = dados[i].nome;
 					lsEstados += "<option value='"+uf+"'>"+nome+"</option>";
 				}
-				var estado = document.getElementById("estado");
+				var estado = document.getElementById("uf");
 				estado.innerHTML = lsEstados;
 			}
-
 		}
 
 		acessarApi();

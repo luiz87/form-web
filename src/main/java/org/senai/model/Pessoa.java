@@ -10,7 +10,16 @@ public class Pessoa {
 	private String sexo = "";
 	private String[] tecnologia = {""};
 	private String escolaridade = "";
+	private String uf;
 	
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
 	public int getId() {
 		return id;
 	}

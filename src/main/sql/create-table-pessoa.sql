@@ -11,3 +11,5 @@ CREATE TABLE pessoas (
 
 
 ALTER TABLE pessoas ADD senha varchar(100);
+
+alter table pessoas add uf varchar(2);
