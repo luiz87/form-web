@@ -95,8 +95,10 @@
 				lsSexo[i].setAttribute('checked', 'checked');
 			}
 		}
-
+		
 		document.getElementById("escolaridade").value = '<%=p.getEscolaridade()%>';
+		
+		
 	<%for (String t : p.getTecnologia()) {
 	if (!t.equals("")) {
 		out.println("document.getElementById('" + t + "').setAttribute('checked', 'checked')");
@@ -117,10 +119,14 @@
 				}
 				var estado = document.getElementById("uf");
 				estado.innerHTML = lsEstados;
+				document.getElementById("uf").value = '<%=p.getUf()%>';
 			}
 		}
 
 		acessarApi();
+		
+		
+		
 	</script>
 
 	<%
