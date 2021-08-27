@@ -81,6 +81,7 @@ public class PessoaDao {
 				p.setTecnologia(rs.getString("tecnologia").split(","));
 				p.setEscolaridade(rs.getString("escolaridade"));
 				p.setUf(rs.getString("uf"));
+				p.setSenha(rs.getString("senha"));
 				p.setId(rs.getInt("id"));
 			}
 			cont.close();
@@ -162,5 +163,26 @@ public class PessoaDao {
 		}
 		return p;
 
+	}
+	
+	public boolean alterarSenha(Pessoa objP) {
+	
+		try {
+			Connection cont = Conexao.conectar();
+
+			String sql = " update pessoas  set senha = ? where id = ?";
+
+			PreparedStatement pst = cont.prepareStatement(sql);
+			pst.setString(1, objP.getSenha());
+			pst.setInt(2, objP.getId());
+
+			pst.execute();
+			pst.close();
+			cont.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

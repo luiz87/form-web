@@ -50,6 +50,7 @@ li a:hover {
 
 		verLista = true;
 	%>
+	<li><a href="alterarSenha.jsp">Alterar Senha</a></li>
 	<li><a href="loginservlet?acao=sair">Logout</a></li>
 	<span id="dadosUsuario">Bem vindo:<%=usuario.getNomeCompleto()%></span>
 	<%

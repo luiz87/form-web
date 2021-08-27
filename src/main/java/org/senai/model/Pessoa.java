@@ -11,7 +11,16 @@ public class Pessoa {
 	private String[] tecnologia = {""};
 	private String escolaridade = "";
 	private String uf;
+	private String senha;
 	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public String getUf() {
 		return uf;
 	}
