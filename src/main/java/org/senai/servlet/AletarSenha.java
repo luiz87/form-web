@@ -2,6 +2,7 @@ package org.senai.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,8 +33,7 @@ public class AletarSenha extends HttpServlet {
 			dao.alterarSenha(p);
 			out.print("Ok ao alterar a senha. ");
 		} else {
-			
-			out.print("Não é possível alterar a senha. ");
+			out.print("Não foi possível alterar a senha.");
 		}
 
 	}
