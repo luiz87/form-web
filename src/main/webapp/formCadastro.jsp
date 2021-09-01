@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="org.senai.model.Pessoa"%>
 <%@page import="org.senai.dao.PessoaDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,10 +21,15 @@
 	<%@ include file="menu.jsp"%>
 	<%
 	Pessoa p = new Pessoa();
+	String dt = "";
 	try {
 		int id = Integer.parseInt(request.getParameter("id"));
 		PessoaDao dao = new PessoaDao();
 		p = dao.getPessoa(id);
+		if(p.getDtNascimento() != null){
+			SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+			dt = s.format(p.getDtNascimento().getTime());
+		}
 	} catch (Exception e) {
 
 	}
@@ -33,22 +39,26 @@
 
 
 	<form action="cadastroServlet">
-		<input type="hidden" name="id" value="<%=p.getId()%>">
+		<div id="msg" style="text-align: center; padding-top: 10px;" ></div>
+		<input type="hidden" name="id" id="id" value="<%=p.getId()%>">
 		<fieldset>
 			<legend>CADASTRO</legend>
-			<img id="img-java" src="img/java.png" alt="imagem java"> <label
+			<img id="img-java" src="img/java.png" alt="imagem java"> 
+			<label
 				for="nome">Nome Completo:</label> <input class="larguraTexto"
-				type="text" id="nome" name="nome-completo"
+				type="text" id="nomecompleto" name="nome-completo"
 				placeholder="Digite seu nome completo"
-				value="<%=p.getNomeCompleto()%>"> <label for="telefone">Telefone:</label>
-			<input class="larguraTexto" type="text" placeholder="(61)9.9999-9999"
-				name="telefone" value="<%=p.getTelefone()%>"> <label
+				value="<%=p.getNomeCompleto()%>"> 
+			<label for="telefone">Telefone:</label>
+			<input class="larguraTexto" type="text" placeholder="(61)9.9999-9999" required="required"
+				id="telefone" name="telefone" value="<%=p.getTelefone()%>"> <label
 				for="dtNascimento">Data de Nascimento:</label> <input
-				class="larguraTexto" type="date" id="dtNascimento"
-				name="dt-nascimento" value="<%=p.getDtNascimento()%>"> <label
-				for="email">E-mail:</label> <input class="larguraTexto" type="email"
-				id="email" name="email" value="<%=p.getEmail()%>"> <label>Estado</label>
-			<select id="uf" name="uf">
+				class="larguraTexto" type="date" id="dtNascimento" required="required"
+				name="dtNascimento"
+				value="<%=dt%>">
+			<label for="email">E-mail:</label> <input class="larguraTexto" 
+				type="email" id="email" name="email" value="<%=p.getEmail()%>">
+			<label>Estado</label> <select id="uf" name="uf">
 				<option>Selecione</option>
 			</select> <label for="sexo">Sexo:</label>
 			<div class="bloco-inline">
@@ -75,9 +85,7 @@
 			<%
 			if (p.getId() > 0) {
 			%>
-			<a class="bt"
-				onclick="return confirm('Você realmente quer apagar esse registro?');"
-				href="cadastroServlet?id=<%=p.getId()%>&acao=apagar">Apagar</a>
+				<input type="button" class="bt" value="Apagar" onclick="apagar(<%=p.getId()%>)">
 			<%
 			} else {
 			%>
@@ -85,7 +93,7 @@
 			<%
 			}
 			%>
-			<input type="submit" class="bt" value="Gravar">
+			<input type="button" class="bt" value="Gravar" onclick="enviarDados()">
 		</fieldset>
 	</form>
 	<script type="text/javascript">
@@ -129,6 +137,54 @@
 		}
 
 		acessarApi();
+		
+		function enviarDados(){
+			var id	= document.querySelector("#id").value;
+			var nomecompleto	= document.querySelector("#nomecompleto").value;
+			var telefone        = document.querySelector("#telefone").value;
+			var dtNascimento    = document.querySelector("#dtNascimento").value;
+			var email           = document.querySelector("#email").value;
+			var sexo            = document.querySelector("[name='sexo']").value;
+			var escolaridade    = document.querySelector("#escolaridade").value;
+			
+			var lst = document.querySelectorAll('[name="tecnologia"]:checked');
+			var tecnologia = "";
+			for(let i = 0; i < lst.length; i++){
+				tecnologia += lst[i].value+",";
+			}
+			
+			var out = "id=$id&nomecompleto=$nomecompleto&telefone=$telefone&dtNascimento=$dtNascimento&email=$email&sexo=$sexo&escolaridade=$escolaridade&tecnologia=$tecnologia";
+			out = out.replace("$id",id);
+			out = out.replace("$nomecompleto",nomecompleto);
+			out = out.replace("$telefone",telefone);
+			out = out.replace("$dtNascimento",dtNascimento);
+			out = out.replace("$email",email);
+			out = out.replace("$sexo",sexo);
+			out = out.replace("$escolaridade",escolaridade);
+			out = out.replace("$tecnologia",tecnologia);
+			acessarApiServlet(out);
+			
+			
+		}
+		
+		function apagar(id){
+			if(confirm('Você realmente quer apagar esse registro?')){
+				acessarApiServlet("id="+id+"&acao=apagar");
+			}
+		}
+		
+		function acessarApiServlet(parametros) {
+			const api = new XMLHttpRequest();
+			// ?orderBy=nome
+			api.open("GET","cadastroServlet?"+parametros);
+			api.send();
+			api.onload = function() {
+				var dados = this.responseText;
+				dados = JSON.parse(dados);
+				document.querySelector("#msg").innerHTML = dados.msg;
+			}
+		}
+		
 	</script>
 
 	<%

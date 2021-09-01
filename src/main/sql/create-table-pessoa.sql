@@ -13,3 +13,7 @@ CREATE TABLE pessoas (
 ALTER TABLE pessoas ADD senha varchar(100);
 
 alter table pessoas add uf varchar(2);
+
+alter table pessoas alter column "dt_nascimento" type date using ("dt_nascimento"::text::date);
+
+ALTER TABLE pessoas ADD CONSTRAINT uk_email UNIQUE (email);

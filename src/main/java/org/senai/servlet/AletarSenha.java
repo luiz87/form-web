@@ -25,6 +25,7 @@ public class AletarSenha extends HttpServlet {
 //		senhaAtual tem que ser igual a senha do banco
 //		novaSenha e confirmarSenha devem ser iguais
 		Pessoa p = (Pessoa) req.getSession().getAttribute("usuario");
+		res.setCharacterEncoding("UTF-8");
 		PrintWriter out = res.getWriter();
 		if (novaSenha.equals(confirmarSenha) && p.getSenha().equals(senhaAtual)) {
 			// chamar um método para alterar a senha.

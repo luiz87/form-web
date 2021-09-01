@@ -1,3 +1,10 @@
+.corpo {
+	width: 50%;
+	margin: auto;
+	border: 2px solid blueviolet;
+	margin-top: 6px;
+}
+
 fieldset {
 	width: 50%;
 	margin: auto;
